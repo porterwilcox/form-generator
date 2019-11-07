@@ -1,8 +1,8 @@
 <template>
-  <div class="home">
+  <div class="home container">
     <img alt="Vue logo" src="../assets/logo.png">
-    <form-generator @updateVals="updateForms" v-for="(fg, fgI) in forms" :key="'fgIndex' + fgI" :fields="fields" :formGenIndex="fgI" :savedVals="forms[fgI]">
-      <button type="button" v-if="fgI != 0 || forms.length > 1" @click="removeForm(fgI)">Remove</button>
+    <form-generator class="row justify-content-center" @updateVals="updateForms" v-for="(fg, fgI) in forms" :key="'fgIndex' + fgI" :fields="fields" :formGenIndex="fgI" :savedVals="forms[fgI]">
+      <button class="btn btn-outline-dark mb-1 round" type="button" v-if="fgI != 0 || forms.length > 1" @click="removeForm(fgI)">remove</button>
     </form-generator>
     <span></span>
     <button @click="forms.push({})">add another</button>
@@ -19,14 +19,16 @@ export default {
     return {
       forms: [{}],
       fields: [new InputField({
-        label: "username",
-        type: "text",
-        required: true
-      }), new InputField({
         label: "activity",
         type: "dropdown",
         required: true,
-        options: ["climbing", "kayaking", "flippity-floppity"]
+        options: ["climbing", "kayaking", "flippity-floppity"],
+        classes: "col-5 order-2"
+      }), new InputField({
+        label: "username",
+        type: "text",
+        required: true,
+        classes: "col-7 order-1"
       })]
     }
   },

@@ -1,18 +1,18 @@
 <template>
-    <div class="form-generator">
-       <form :class="'form'+formGenIndex">
-            <div v-for="(f, i) in fields" :key="i"> <!-- NOTE dynamic input group -->   
+    <div class="form-generator border my-2">
+       <form :class="'form'+formGenIndex" class="w-100 d-flex flex-wrap justify-content-center">
+            <div :class="f.classes" v-for="(f, i) in fields" :key="i"> <!-- NOTE dynamic input group -->   
                 <label :for="f.label">{{f.label}}</label>
-                <input :name="f.label" v-if="f.type !== 'dropdown'" :type="f.type" :required="f.required" @keyup="updateFormVals($event)">
-                <select v-else :name="f.label" @change="updateFormVals($event)">
+                <input class="w-100" :name="f.label" v-if="f.type !== 'dropdown'" :type="f.type" :required="f.required" @keyup="updateFormVals($event)">
+                <select class="w-100" v-else :name="f.label" @change="updateFormVals($event)">
                     <option selected disabled>select</option>
                     <option v-for="(o, j) in f.options" :value="o" :key="j">{{o}}</option>
                 </select>
             </div>
             <!-- NOTE every form allows for comments -->
-            <textarea name="comments" cols="30" rows="10" placeholder="comments..." @keyup="updateFormVals($event)"></textarea>
-            <slot></slot>
+            <textarea class="m-3 w-100 order-10" name="comments" cols="30" rows="3" placeholder="comments..." @keyup="updateFormVals($event)"></textarea>
        </form>
+            <slot></slot>
     </div>
 </template>
 
@@ -68,3 +68,16 @@ export default {
    }
 }
 </script>
+
+<style>
+    .form-generator {
+        background: var(--light);
+        transition: all .33s linear;
+        opacity: .7;
+    }
+    .form-generator:hover, .form-generator:active, .form-generator:focus {
+        box-shadow: -1px 1px 2px var(--secondary);
+        /* background: white; */
+        opacity: 1;
+    }
+</style>
